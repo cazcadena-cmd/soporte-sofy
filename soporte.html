@@ -233,7 +233,6 @@
 <body>
 
 <main class="app">
-  <!-- Encabezado / Bar Superior -->
   <header class="topbar">
     <a class="brand" href="index.html">
       <img id="brandLogo" src="https://i.imgur.com/HuC4TzS.gif" alt="Logo Sofy">
@@ -248,14 +247,11 @@
     </div>
   </header>
 
-  <!-- Contenedor del Formulario -->
   <section class="container">
     <p class="eyebrow">Atención al cliente</p>
     <h1>Soporte & PQRS</h1>
     <p class="subtitle">¿Tienes alguna duda, reclamo, recomendación o felicitación? Envíanos tu requerimiento y te responderemos a la brevedad.</p>
 
-    <!-- FORMULARIO DE ENVÍO -->
-    <!-- Reemplaza la URL del action por tu ID de Formspree o tu endpoint backend -->
     <form id="pqrForm" action="https://formspree.io/f/mwlpbjpq" method="POST" enctype="multipart/form-data">
       
       <label>Nombre completo
@@ -276,7 +272,6 @@
           <option value="Peticion">Petición (Solicitud de información)</option>
           <option value="Queja">Queja (Inconformidad con un servicio o comercio)</option>
           <option value="Reclamo">Reclamo (Falla o incumplimiento directo)</option>
-
           <option value="Sugerencia">Sugerencia / Recomendación</option>
           <option value="Felicitacion">Felicitación</option>
           <option value="Soporte Tecnico">Soporte Técnico de la App</option>
@@ -291,7 +286,6 @@
         <textarea name="mensaje" placeholder="Describe detalladamente tus comentarios o requerimientos..." required></textarea>
       </label>
 
-      <!-- Adjuntar Evidencia -->
       <label>Adjuntar evidencia (Imagen o documento opcional)
         <div class="upload" id="uploadBtn">
           <span id="uploadPrompt">
@@ -337,7 +331,7 @@
     $('moon').classList.toggle('active', t === 'dark');
     $('brandLogo').src = t === 'dark' ? 'https://i.imgur.com/HuC4TzS.gif' : 'https://i.imgur.com/Gn2AtJq.gif';
   }
-  
+
   theme(localStorage.getItem('madelena-theme') || 'dark');
   $('themeBtn').onclick = () => theme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
 
@@ -346,7 +340,7 @@
   $('fileInput').onchange = () => {
     let f = $('fileInput').files[0];
     if (!f) return;
-    
+
     if (f.size > 5242880) { // Máximo 5MB
       showToast('El archivo no debe superar los 5 MB');
       $('fileInput').value = '';
@@ -367,7 +361,7 @@
     }
   };
 
-  // Envío del formulario por AJAX / Fetch para mostrar toast sin recargar la página abruptamente
+  // Envío del formulario por AJAX / Fetch
   $('pqrForm').onsubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -378,7 +372,6 @@
     const formData = new FormData(form);
 
     try {
-      // Reemplaza la URL por tu Formspree o servicio contratado
       const response = await fetch(form.action, {
         method: form.method,
         body: formData,
